@@ -65,10 +65,6 @@ function removeCardFromStorage(ideaID) {
 function upvote(ideaCard) {
   var idea = retrieveCard(ideaCard);
   console.log(idea);
-  if (idea.quality = idea.quality[0]) {
-    $('.quality-text').text(idea.quality[2]);
-  }
-  else if(idea.quality = idea.quality[1]) {
-    $('.quality-text').text(idea.quality[2]);
-  }
+  console.log(idea.quality);
+  if(idea.quality)
 }
