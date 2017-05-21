@@ -1,13 +1,14 @@
 $(document).ready(reloadCards);
 
 $("#idea-container").on("click", ".remove-button", removeCard);
-
+$('#idea-container').on('click', '.upvote', upvote);
 $("#save-button").on("click", clickSaveButton);
 
 function IdeaCard(title, body) {
   this.title = title;
   this.body = body;
   this.id = Date.now();
+  this.quality = ["swill", "plausible", "genius"];
 }
 
 function clickSaveButton() {
@@ -32,7 +33,7 @@ function createCard(ideaCard) {
       <div class="button-container">
         <button class="upvote" type="button" name="button"></button>
         <button class="downvote" type="button" name="button"></button>
-        <p class="quality-text">quality: swill</p>
+        <p class="quality-text">quality: ${ideaCard.quality[0]}</p>
       </div>
     </article>`);
 }
@@ -42,8 +43,7 @@ function storeCard(idea) {
 }
 
 function retrieveCard(ideaID) {
-  JSON.parse(localStorage.getItem(ideaID));
-  console.log(  JSON.parse(localStorage.getItem(ideaID)));
+  return JSON.parse(localStorage.getItem(ideaID));
 }
 
 function reloadCards() {
@@ -60,4 +60,11 @@ function removeCard() {
 
 function removeCardFromStorage(ideaID) {
   localStorage.removeItem(ideaID);
+}
+
+function upvote(ideaCard) {
+  var idea = retrieveCard(ideaCard);
+  console.log(idea);
+  console.log(idea.quality);
+  if(idea.quality)
 }
