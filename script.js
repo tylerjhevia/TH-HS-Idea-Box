@@ -1,14 +1,18 @@
 $(document).ready(reloadCards);
 
-$("#idea-container").on("click", ".remove-button", removeCard);
-$('#idea-container').on('click', '.upvote', upvote);
+$("#idea-container").on("click", ".remove-button", removeCard)
+                    .on('click', ".downvote", downvote)
+                    .on('click', '.upvote', upvote);
 $("#save-button").on("click", clickSaveButton);
+
 
 function IdeaCard(title, body) {
   this.title = title;
   this.body = body;
   this.id = Date.now();
-  this.quality = ["swill", "plausible", "genius"];
+  this.qualities = ["swill", "plausible", "genius"];
+  this.index = 0;
+  this.quality = this.qualities[this.index];
 }
 
 function clickSaveButton() {
@@ -33,18 +37,12 @@ function createCard(ideaCard) {
       <div class="button-container">
         <button class="upvote" type="button" name="button"></button>
         <button class="downvote" type="button" name="button"></button>
-        <p class="quality-text">quality: ${ideaCard.quality[0]}</p>
+        <p class="quality-text">quality:${ideaCard.quality}</p>
       </div>
     </article>`);
 }
 
-function storeCard(idea) {
-  localStorage.setItem(idea.id, JSON.stringify(idea));
-}
 
-function retrieveCard(ideaID) {
-  return JSON.parse(localStorage.getItem(ideaID));
-}
 
 function reloadCards() {
   for (var i = 0; i < localStorage.length; i++) {
@@ -62,9 +60,43 @@ function removeCardFromStorage(ideaID) {
   localStorage.removeItem(ideaID);
 }
 
-function upvote(ideaCard) {
-  var idea = retrieveCard(ideaCard);
+function setItemLocal(id, idea) {
+  localStorage.setItem(id, JSON.stringify(idea));
+}
+
+function retrieveCard(ideaID) {
+  var parsedObject = JSON.parse(localStorage.getItem(ideaID));
+  return [parsedObject, parsedObject.qualities, parsedObject.index, parsedObject.quality];
+}
+
+function storeCard(idea) {
+  localStorage.setItem(idea.id, JSON.stringify(idea));
+}
+
+function upvote() {
+  var ideaId = ($(this).closest(".idea-card").attr("id"));
+  var idea = retrieveCard(ideaId);
   console.log(idea);
-  console.log(idea.quality);
-  if(idea.quality)
+  if (idea[2] == idea[1].length - 1) {
+    return;
+  }
+  idea[2]++;
+  idea[0].quality = idea[1][idea[2]];
+  idea[0].index = idea[2];
+  setItemLocal(ideaId, idea[0]);
+  $(this).siblings('.quality-text').text("quality: " + " " + idea[1][idea[2]]);
+}
+
+function downvote() {
+  var ideaId = ($(this).closest(".idea-card").attr("id"));
+  var idea = retrieveCard(ideaId);
+  console.log(idea);
+  if (idea[2] === 0) {
+    return;
+  }
+  idea[2]--;
+  idea[0].quality = idea[1][idea[2]];
+  idea[0].index = idea[2];
+  setItemLocal(ideaId, idea[0]);
+  $(this).siblings('.quality-text').text("quality: " + " " + idea[1][idea[2]]);
 }
