@@ -3,7 +3,9 @@ $(document).ready(reloadCards);
 $("#idea-container").on("click", ".remove-button", removeCard)
                     .on('click', ".downvote", downvote)
                     .on('click', '.upvote', upvote);
-$("#save-button").on("click", clickSaveButton);
+$("#save-button").on("click", clickSaveButton)
+                 .on("click", disableSaveButton);
+$("#title-input, #body-input").on("input", disableSaveButton);
 
 
 function IdeaCard(title, body) {
@@ -17,6 +19,7 @@ function IdeaCard(title, body) {
 
 function clickSaveButton() {
   event.preventDefault();
+  console.log('yo');
   var titleInput = $("#title-input").val();
   var bodyInput = $("#body-input").val();
   var newCard = new IdeaCard(titleInput, bodyInput);
@@ -32,8 +35,8 @@ function clearInputFields() {
 function createCard(ideaCard) {
   $("#idea-container").prepend(`
     <article class="idea-card" id="${ideaCard.id}">
-      <h2 class="idea-card-title">${ideaCard.title}<button class="remove-button" type="button" name="button"></button></h2>
-      <p class="idea-card-body">${ideaCard.body}</p>
+      <h2 class="idea-card-title" contenteditable="true">${ideaCard.title}<button class="remove-button" type="button" name="button" contenteditable="false"></button></h2>
+      <p class="idea-card-body" contenteditable="true">${ideaCard.body}</p>
       <div class="button-container">
         <button class="upvote" type="button" name="button"></button>
         <button class="downvote" type="button" name="button"></button>
@@ -99,4 +102,14 @@ function downvote() {
   idea[0].index = idea[2];
   setItemLocal(ideaId, idea[0]);
   $(this).siblings('.quality-text').text("quality: " + " " + idea[1][idea[2]]);
+}
+
+function disableSaveButton() {
+  var titleInput = $("#title-input").val();
+  var bodyInput = $("#body-input").val();
+  if (titleInput != "" && bodyInput != "" ) {
+    $("#save-button").prop("disabled", false);
+  } else if (titleInput === "" && bodyInput === "") {
+    $("#save-button").prop("disabled", true);
+  }
 }
