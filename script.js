@@ -6,7 +6,8 @@ $("#idea-container").on("click", ".remove-button", removeCard)
 $("#save-button").on("click", clickSaveButton)
                  .on("click", disableSaveButton);
 $("#title-input, #body-input").on("input", disableSaveButton);
-
+$("#search-input").on("input", filterText);
+$("#idea-card-boyd").on("input", )
 
 function IdeaCard(title, body) {
   this.title = title;
@@ -112,4 +113,45 @@ function disableSaveButton() {
   } else if (titleInput === "" && bodyInput === "") {
     $("#save-button").prop("disabled", true);
   }
+}
+
+function filterText() {
+  var searchInput = $(this).val().toLowerCase();
+  $(".idea-card").each(function() {
+    var ideaText = $(this).text().toLowerCase();
+    if(ideaText.indexOf(searchInput) !== -1) {
+      $(this).show();
+      console.log(this);
+    }
+    else {
+      $(this).hide();
+      console.log(this);
+    }
+  })
+  }
+  // trying to call saveChanges function when enter button is pressed while editing idea-card-body
+// $('#idea-container').on('keypress', '.idea-card-body', function(event) {
+//      event.preventDefault();
+//      if(event.keyCode === 13) {
+//      console.log("hello");
+//      saveChanges();
+//    }
+//   })
+
+$('#idea-container').on('blur', '.idea-card-title', saveChanges)
+                    .on('blur', '.idea-card-body', saveChanges);
+
+
+function saveChanges() {
+  // declare variable for idea card's id
+  var ideaID = ($(this).closest(".idea-card").attr("id"));
+  // use retrieveCard function with idea card's id as argument to retrieve object and set that to a variable
+  var ideaObject = retrieveCard(ideaID);
+  // set variable.title = new input in idea card body and idea card title
+  var newIdeaObjectBody = $(".idea-card-body").text();
+  var newIdeaObjectTitle = $(".idea-card-title").text();
+  ideaObject[0].body = newIdeaObjectBody;
+  ideaObject[0].title = newIdeaObjectTitle;
+  setItemLocal(ideaID, ideaObject[0]);
+  //
 }

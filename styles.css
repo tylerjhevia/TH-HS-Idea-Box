@@ -94,6 +94,7 @@ h1 {
 article {
   border-bottom: 3px solid #D1D3D4;
   margin: 0 auto;
+  margin-bottom: 30px;
   width: 50%;
 }
 
@@ -126,6 +127,7 @@ h2:after {
   content: "";
   display: table;
 }
+
 
 .idea-card-body {
   color: #939598;
