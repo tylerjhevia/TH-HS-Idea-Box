@@ -18,8 +18,8 @@ h1 {
   color: #00A79D;
   font-family: 'Roboto Slab',  serif;
   font-size: 50px;
-  margin-top: 0px;
   margin-bottom: 20px;
+  margin-top: 0px;
   text-align: center;
 }
 
@@ -31,7 +31,7 @@ textarea {
   margin-left: auto;
   margin-right: auto;
   padding-left: 10px;
-  width: 50%;
+  width: 55%;
 }
 
 textarea {
@@ -45,12 +45,6 @@ textarea::-webkit-input-placeholder {
   vertical-align: top;
 }
 
-article {
-  border-bottom: 3px solid #D1D3D4;
-  margin: 0 auto;
-  margin-bottom: 30px;
-  width: 50%;
-}
 
 h2 {
   color: #6D6E71;
@@ -67,6 +61,13 @@ h2:after {
 
 button:focus {
   outline: none;
+}
+
+.idea-card {
+  border-bottom: 3px solid #D1D3D4;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  width: 55%;
 }
 
 .remove-button {
@@ -186,10 +187,10 @@ button:focus {
   padding-top: 25px;
 }
 
-@media (max-width: 750px) {
+@media (max-width: 700px) {
 
   h1 {
-    font-size: 35px;
+    font-size: 40px;
   }
 
   input,
@@ -203,7 +204,13 @@ button:focus {
   }
 
   #body-input::-webkit-textarea-placeholder {
-    position: relative;
     bottom: 30px;
+    position: relative;
+  }
+}
+
+@media (max-width: 550px) {
+  h1 {
+    font-size: 35px;
   }
 }

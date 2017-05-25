@@ -37,7 +37,7 @@ function clearInputFields() {
 
 function createCard(ideaCard) {
   $("#idea-container").prepend(`
-    <article class="idea-card" id="${ideaCard.id}">
+    <article role="article" class="idea-card" id="${ideaCard.id}">
       <h2 class="idea-card-title" contenteditable="true">${ideaCard.title}<button class="remove-button" type="button" name="button" contenteditable="false"></button></h2>
       <p class="idea-card-body" contenteditable="true">${ideaCard.body}</p>
       <div class="button-container">

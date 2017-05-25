@@ -11,11 +11,11 @@
   <body>
 
     <section id="header-container">
-      <h1>idea<span id="box">box</span></h1>
+      <h1 role="banner">idea<span id="box">box</span></h1>
       <form action="index.html" method="post">
         <input id="title-input" type="text" name="title-input" placeholder="Title"/>
-        <textarea id="body-input" type="text" name="body-input" placeholder="Body"/></textarea>
-        <input id="save-button" type="submit" name="save-button" value="save" disabled="true"/>
+        <textarea role="textbox" aria-multiline="true" id="body-input" type="text" name="body-input" placeholder="Body"/></textarea>
+        <input role="button" id="save-button" type="submit" name="save-button" value="save" disabled="true"/>
       </form>
     </section>
 
